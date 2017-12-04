@@ -1,0 +1,341 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_ventas"
+    tools:context="com.example.omarchh.minegociotest.Fragment.VentasFragment">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#09000000">
+
+        <View
+            android:id="@+id/background_dimmer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#55000000"
+            android:elevation="1dp"
+            android:visibility="gone" />
+
+
+         <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/linearLayoutButtonSales">
+
+
+             <LinearLayout
+                android:background="#808080"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.2"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                 <TextView
+
+                     android:layout_width="0dp"
+                     android:layout_height="match_parent"
+                     android:layout_weight="1"
+                     android:id="@+id/btnElegirVendedor"
+                     android:background="#f9f9f9"
+                     android:clickable="true"
+                     android:drawableLeft="@drawable/account_plus"
+                     android:drawableRight="@drawable/arrowdisplay"
+                     android:gravity="center"
+                     android:text="Vendedor" />
+
+                <TextView
+                    android:background="#f9f9f9"
+                    android:id="@+id/btnElegirCliente"
+                    android:layout_marginLeft="0.1dp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/human"
+                    android:gravity="center"
+                    android:text="Cliente"
+                    android:drawableRight="@drawable/arrowdisplay"/>
+
+            </LinearLayout>
+
+             <LinearLayout
+                android:background="#f9f9f9"
+                 android:layout_width="match_parent"
+                 android:layout_height="0dp"
+                 android:layout_weight="1.3"
+                 android:orientation="horizontal"
+                >
+
+
+                 <LinearLayout
+                        android:id="@+id/linearLayoutBtnDetalleVenta"
+                     android:clickable="true"
+                     android:visibility="visible"
+                     android:layout_width="0dp"
+                     android:layout_height="match_parent"
+                     android:layout_weight="1"
+                     android:background="?attr/selectableItemBackground"
+                     android:orientation="horizontal">
+
+                     <TextView
+                         android:id="@+id/txtCantidadProducto"
+                         android:layout_width="0dp"
+                         android:layout_height="match_parent"
+                         android:layout_weight="1"
+                         android:background="#f9f9f9"
+                         android:drawableLeft="@drawable/car_sale"
+                         android:gravity="left|center"
+                         android:text="x0"
+                         android:textColor="#97000000"
+                         android:textSize="20sp" />
+
+                  <LinearLayout
+                      android:layout_width="0dp"
+                      android:layout_weight="1.8"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical"
+                      android:id="@+id/content_Text">
+                      <TextView
+                      android:background="#f9f9f9"
+                          android:id="@+id/txtNombreUltimoProductoEnCarrito"
+                          android:paddingLeft="4dp"
+                          android:textStyle="bold"
+                          android:layout_width="match_parent"
+                          android:layout_weight="1"
+                          android:layout_height="0dp"
+                          android:textColor="#000000"
+                          android:text="Detalle de venta"
+                          android:gravity="left|center"
+                          android:textSize="15sp"
+                          />
+                      <TextView
+                          android:background="#f9f9f9"
+                          android:textStyle="bold"
+                          android:id="@+id/txtPrecioUltimoProductoEnCarrito"
+                          android:layout_width="match_parent"
+                          android:layout_weight="1"
+                          android:layout_height="0dp"
+                          android:textColor="#484bfa"
+                          android:text="Presiona aqui"
+                          android:gravity="left|center"
+                          android:textSize="15sp"
+                          />
+
+
+                  </LinearLayout>
+
+
+
+
+                 </LinearLayout>
+
+                 <Button
+                     android:id="@+id/btnCobrar"
+                     android:layout_width="0dp"
+                     android:layout_height="match_parent"
+                     android:layout_marginLeft="10dp"
+                     android:layout_marginRight="10dp"
+                     android:layout_weight="0.8"
+                     android:backgroundTint="#fd8223"
+                     android:text="Cobrar  S/ 0.0"
+                     android:textColor="#ffffff"
+                     android:textSize="15sp"
+                     android:textStyle="bold" />
+             </LinearLayout>
+
+
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="0dp"
+                 android:layout_weight="8">
+
+
+                 <com.sothree.slidinguppanel.SlidingUpPanelLayout
+                     android:id="@+id/sliding_layout"
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:gravity="top"
+                     app:umanoPanelHeight="0dp"
+                     app:umanoShadowHeight="4dp">
+
+
+                     <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:orientation="vertical">
+
+                         <LinearLayout
+                             android:layout_width="match_parent"
+                             android:layout_height="0dp"
+                             android:layout_weight="1.5"
+                             android:orientation="horizontal"
+                             android:paddingTop="5dp">
+
+                             <AutoCompleteTextView
+                                 android:id="@+id/acTVcodeProduct"
+                                 android:hint="Busqueda de Producto"
+                                 android:layout_width="0dp"
+                                 android:layout_height="match_parent"
+                                 android:layout_margin="3dp"
+                                 android:layout_weight="4.2"
+                                 android:backgroundTint="@color/colorPrimaryDark"
+                                 android:drawableRight="@android:drawable/ic_menu_search"
+                                 android:textColorLink="@color/colorPrimary" />
+
+
+                             <ImageButton
+
+                                 android:id="@+id/imgBtnScan"
+                                 android:layout_width="0dp"
+                                 android:layout_height="match_parent"
+                                 android:layout_gravity="center"
+                                 android:layout_margin="5dp"
+                                 android:layout_weight="0.8"
+                                 android:background="#21cc27"
+                                 android:elevation="5dp"
+                                 android:src="@drawable/ic_barcode_scan_white_48dp" />
+                         </LinearLayout>
+                         <LinearLayout
+                             android:layout_width="match_parent"
+                             android:layout_height="0dp"
+
+                             android:layout_weight="7"
+                             android:padding="4dp"
+                             android:orientation="vertical">
+
+                             <android.support.v7.widget.RecyclerView
+                                 android:id="@+id/rvProductsInSale"
+                                 android:background="#09000000"
+                                 android:layout_width="match_parent"
+                                 android:layout_height="match_parent"
+                                 android:scrollbars="vertical"
+                                 android:visibility="gone" />
+                             <TextView
+                                 android:id="@+id/txtTextoCarrito"
+                                 android:layout_width="match_parent"
+                                 android:layout_height="match_parent"
+                                 android:layout_margin="50dp"
+                                 android:drawableRight="@drawable/inventory"
+                                 android:gravity="center"
+                                 android:text="No hay productos en el Inventario"
+                                 android:textColor="#73000000"
+                                 android:textSize="30sp"
+                                 android:textStyle="bold" />
+
+                         </LinearLayout>
+
+                         <!--here comes your main layout -->
+
+
+                     </LinearLayout>
+
+                     <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:gravity="center|top"
+                         android:orientation="vertical">
+
+
+                         <android.support.v7.widget.RecyclerView
+                             android:id="@+id/rvCarritoVenta"
+                             android:background="#09000000"
+                             android:layout_width="match_parent"
+                             android:layout_height="0dp"
+                             android:layout_weight="5"
+                             android:scrollbars="vertical"
+                             android:visibility="visible" />
+
+                         <LinearLayout
+
+                             android:layout_width="match_parent"
+                             android:layout_height="0dp"
+                             android:layout_weight="1"
+                             android:background="#f9f9f9"
+                             android:orientation="horizontal"
+                             android:paddingBottom="15dp"
+                             android:paddingTop="15dp">
+
+                             <TextView
+                                 android:id="@+id/txtDescuentoPrecioVenta"
+                                 android:layout_width="0dp"
+                                 android:layout_height="match_parent"
+                                 android:layout_marginLeft="15dp"
+                                 android:layout_weight="1.8"
+                                 android:background="#09000000"
+                                 android:drawableLeft="@drawable/percent1"
+                                 android:gravity="center|left"
+                                 android:text="S/0.00"
+                                 android:textColor="#58ff61"
+                                 android:textSize="20sp"
+                                 android:textStyle="bold" />
+
+                             <Button
+                                 android:layout_width="0dp"
+                                 android:layout_height="match_parent"
+                                 android:layout_weight="1"
+                                 android:backgroundTint="#fd8223"
+                                 android:text="Cancelar"
+                                 android:textColor="#ffffff" />
+
+                             <Button
+                                 android:layout_width="0dp"
+                                 android:layout_height="match_parent"
+                                 android:layout_weight="0.5"
+                                 android:background="#f9f9f9"
+                                 android:backgroundTint="#fd8223"
+                                 android:text="Cancelar"
+                                 android:textColor="#ffffff" />
+                         </LinearLayout>
+                         <!-- here comes your sliding up panel layout-->
+                        
+                     </LinearLayout>
+
+                 </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+             </LinearLayout>
+
+
+
+
+         </LinearLayout>
+
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:id="@+id/floating_buttonSale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="0dp"
+            android:elevation="24dp"
+            app:fab_addButtonColorNormal="@android:color/holo_blue_dark"
+            app:fab_addButtonSize="normal"
+            app:fab_labelStyle="@style/LabelFloatingButton"
+            app:fab_labelsPosition="left">
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/accion_HistorialVenta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorNormal="#409ce7"
+                app:fab_icon="@drawable/ic_history_white_48dp"
+                app:fab_size="mini"
+                app:fab_title="Historial Venta" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/accion_GenerarCotizacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorNormal="#409ce7"
+                app:fab_icon="@drawable/ic_receipt_white_24dp"
+                app:fab_size="mini"
+                app:fab_title="Generar Cotizacion" />
+
+
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+    </RelativeLayout>
+</FrameLayout>

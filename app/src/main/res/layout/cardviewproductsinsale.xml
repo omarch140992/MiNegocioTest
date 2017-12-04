@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cvProductInSale"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:layout_marginBottom="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/ImageProductPhoto"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/atom" />
+        <TextView
+            android:id="@+id/txtNombreProducto"
+            android:layout_width="160dp"
+            android:layout_height="match_parent"
+            android:textStyle="bold"
+            android:gravity="center|left"
+            android:padding="10dp"
+            android:text="Nombre del Producto"/>
+        <TextView
+            android:id="@+id/txtPrecioProducto"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="S/100.00"
+            />
+
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
