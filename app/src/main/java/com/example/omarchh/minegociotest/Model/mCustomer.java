@@ -10,11 +10,40 @@ public class mCustomer {
 
     private int iId;
     private String cName;
-    private String cAlias;
+    private String cApellidoPaterno;
+    private String cApellidoMaterno;
     private String cNumberPhone;
     private String cDireccion;
     private String iIdCustomer;
     private String cEmail;
+
+    public mCustomer() {
+        cName="";
+        cApellidoPaterno = "";
+        cApellidoMaterno = "";
+        cNumberPhone="";
+        cEmail="";
+        iId=0;
+        iIdCustomer="";
+    }
+
+    public mCustomer(int iId, String cName, String cApellidoPaterno, String cApellidoMaterno, String cNumberPhone, String cEmail, String cDireccion) {
+        this.iId = iId;
+        this.cName = cName;
+        this.cApellidoPaterno = cApellidoPaterno;
+        this.cNumberPhone = cNumberPhone;
+        this.cEmail = cEmail;
+        this.cApellidoMaterno = cApellidoMaterno;
+        this.cDireccion = cDireccion;
+    }
+
+    public String getcApellidoMaterno() {
+        return cApellidoMaterno;
+    }
+
+    public void setcApellidoMaterno(String cApellidoMaterno) {
+        this.cApellidoMaterno = cApellidoMaterno;
+    }
 
     public String getcDireccion() {
         return cDireccion;
@@ -32,24 +61,6 @@ public class mCustomer {
         this.iIdCustomer = iIdCustomer;
     }
 
-    public mCustomer() {
-        cName="";
-        cAlias="";
-        cNumberPhone="";
-        cEmail="";
-        iId=0;
-        iIdCustomer="";
-    }
-
-    public mCustomer(int iId, String cName, String cAlias, String cNumberPhone, String cEmail) {
-        this.iId = iId;
-        this.cName = cName;
-        this.cAlias = cAlias;
-        this.cNumberPhone = cNumberPhone;
-        this.cEmail = cEmail;
-    }
-
-
     public int getiId() {
         return iId;
     }
@@ -66,12 +77,12 @@ public class mCustomer {
         this.cName = cName;
     }
 
-    public String getcAlias() {
-        return cAlias;
+    public String getcApellidoPaterno() {
+        return cApellidoPaterno;
     }
 
-    public void setcAlias(String cAlias) {
-        this.cAlias = cAlias;
+    public void setcApellidoPaterno(String cApellidoPaterno) {
+        this.cApellidoPaterno = cApellidoPaterno;
     }
 
     public String getcNumberPhone() {
@@ -90,5 +101,8 @@ public class mCustomer {
         this.cEmail = cEmail;
     }
 
-
+    @Override
+    public String toString() {
+        return cName + " " + cApellidoPaterno;
+    }
 }

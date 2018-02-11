@@ -14,15 +14,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.example.omarchh.minegociotest.DialogFragments.DialogAddEditCustomer;
-import com.example.omarchh.minegociotest.InterfaceDataCustomerProvider;
 import com.example.omarchh.minegociotest.R;
 import com.example.omarchh.minegociotest.RvAdapterCustomer;
-import com.example.omarchh.minegociotest.ValidarExistenciaDialogAlert;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class clienteFragment extends Fragment implements View.OnClickListener,InterfaceDataCustomerProvider {
+public class clienteFragment extends Fragment implements View.OnClickListener {
 
     EditText  edtSearchClient;
     ImageButton btnAddContact,btnViewContact,btnDeleteText;
@@ -53,7 +51,7 @@ public class clienteFragment extends Fragment implements View.OnClickListener,In
         btnViewContact=(ImageButton) rootView.findViewById(R.id.btnViewContact);
         btnAddContact=(ImageButton)rootView.findViewById(R.id.btnAddContact);
         btnDeleteText=(ImageButton)rootView.findViewById(R.id.btnDeleteTextSearchCliente);
-        dialogAddEditCustomer.setListenerCustomer(this);
+
         btnDeleteText.setOnClickListener(this);
         btnViewContact.setOnClickListener(this);
         btnAddContact.setOnClickListener(this);
@@ -82,12 +80,6 @@ public class clienteFragment extends Fragment implements View.OnClickListener,In
         dialogFragment.show(((Activity)getContext()).getFragmentManager(),"");
 
     }
-
-    @Override
-    public void setDataCustomer(String name, String Alias, String numberPhone, String Email, String Direccion) {
-            rvAdapterCustomer.Add(name,Alias,Direccion,numberPhone);
-    }
-
 
 
 }

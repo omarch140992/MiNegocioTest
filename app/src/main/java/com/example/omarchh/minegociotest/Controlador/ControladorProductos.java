@@ -1,12 +1,12 @@
 package com.example.omarchh.minegociotest.Controlador;
+
 import android.content.Context;
 import android.widget.Toast;
 
 import com.example.omarchh.minegociotest.ConexionBd.BdConnectionSql;
+import com.example.omarchh.minegociotest.Constantes.Constantes;
 import com.example.omarchh.minegociotest.Model.mProduct;
-import com.example.omarchh.minegociotest.Constantes.*;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -18,24 +18,36 @@ public class ControladorProductos   {
     BdConnectionSql bdConnectionSql;
     Context context;
     public ControladorProductos(Context context){
-        bdConnectionSql=new BdConnectionSql();
+        bdConnectionSql = BdConnectionSql.getSinglentonInstance();
         this.context=context;
     }
 
-    public List<mProduct> mostrarListaProducto(){
 
-        try {
-            return bdConnectionSql.getListProduct();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public List<mProduct> getListaProductos() {
+        // metodo busqueda : Todos los productos=100  Por Id detalle=101   Por Id sin Imagen =102  Por parametro =103
+
+        byte metodo = 100;
+        return bdConnectionSql.getProductList(0, "", metodo);
     }
 
-    public List<mProduct> BuscarProducto(String Parametro){
-           return bdConnectionSql.searchProduct(Parametro);
+    public List<mProduct> getListaProductosPorParametro(String parametroBusqueda) {
+        // metodo busqueda : Todos los productos=100  Por Id detalle=101   Por Id sin Imagen =102  Por parametro =103
+
+        byte metodo = 103;
+        return bdConnectionSql.getProductList(0, parametroBusqueda, metodo);
     }
-    public void GuardarDatos(mProduct product,String Accion){
+
+    public mProduct getProductIdSinImagen(int idProducto) {
+        byte metodo = 102;
+        return bdConnectionSql.getProductList(idProducto, "", metodo).get(0);
+    }
+
+    public mProduct getProductoPorIdImagen(int idProducto) {
+        byte metodo = 101;
+        return bdConnectionSql.getProductList(idProducto, "", metodo).get(0);
+    }
+
+    public void GuardarDatos(mProduct product, String Accion) {
 
         switch (Accion){
             case Constantes.EstadoProducto.NuevoProducto:

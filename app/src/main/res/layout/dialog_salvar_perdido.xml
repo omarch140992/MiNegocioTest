@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingRight="16dp">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/InLIndentificadorPedido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="13dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="50">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="266dp"
+            android:layout_height="wrap_content"
+            android:hint="Identificador del pedido"
+            android:maxLength="50"
+            android:maxLines="1" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/InLObservacionPedido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/InLIndentificadorPedido"
+        android:layout_below="@+id/InLIndentificadorPedido"
+        app:counterEnabled="true"
+        app:counterMaxLength="120">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Observaciones"
+            android:maxLength="120" />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <ImageButton
+        android:id="@+id/btnScanCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/InLIndentificadorPedido"
+        android:backgroundTint="#fd8223"
+        android:elevation="3dp"
+        android:src="@drawable/ic_barcode_scan_white_36dp" />
+</RelativeLayout>

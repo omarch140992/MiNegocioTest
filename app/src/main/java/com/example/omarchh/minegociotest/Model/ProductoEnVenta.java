@@ -1,19 +1,23 @@
 package com.example.omarchh.minegociotest.Model;
 
+import java.math.BigDecimal;
+
 /**
  * Created by OMAR CHH on 17/11/2017.
  */
 
- public class ProductoEnVenta {
+public class ProductoEnVenta {
 
     int IdProducto;
     int itemNum;
     String ProductName;
+    String observacion;
     float cantidad;
     float cantidadEnStock;
-    float precioOriginal;
+    BigDecimal precioOriginal;
     float descuento;
-    float precioVentaFinal;
+    String observacionProducto;
+    BigDecimal precioVentaFinal;
 
     public ProductoEnVenta(){
         itemNum=0;
@@ -21,20 +25,26 @@ package com.example.omarchh.minegociotest.Model;
         ProductName="";
         cantidad=0;
         descuento=0;
-        precioVentaFinal=0;
+        observacion = "";
+        precioVentaFinal = new BigDecimal(0);
         cantidadEnStock=0;
-        precioVentaFinal=0;
+        precioVentaFinal = new BigDecimal(0);
 
     }
 
-    public ProductoEnVenta(int idProducto,String productName,int itemNum, float cantidad, float cantidadEnStock, float precioOriginal,float precioVentaFinal,float descuento) {
+    public ProductoEnVenta(int idProducto,
+                           String productName,
+                           int itemNum, float cantidad,
+                           BigDecimal precioOriginal,
+                           BigDecimal precioVentaFinal,
+                           String observacion) {
         this.IdProducto = idProducto;
         this.ProductName = productName;
-        this.cantidadEnStock=cantidadEnStock;
+
         this.cantidad = cantidad;
-        this.descuento = descuento;
+        this.observacion = observacion;
         this.precioVentaFinal = precioVentaFinal;
-        this.precioOriginal=precioVentaFinal;
+        this.precioOriginal = precioOriginal;
         this.itemNum=itemNum;
     }
 
@@ -46,15 +56,13 @@ package com.example.omarchh.minegociotest.Model;
         this.cantidadEnStock = cantidadEnStock;
     }
 
-    public float getPrecioOriginal() {
+    public BigDecimal getPrecioOriginal() {
         return precioOriginal;
     }
 
-    public void setPrecioOriginal(float precioOriginal) {
+    public void setPrecioOriginal(BigDecimal precioOriginal) {
         this.precioOriginal = precioOriginal;
     }
-
-
 
 
     public int getIdProducto() {
@@ -89,13 +97,15 @@ package com.example.omarchh.minegociotest.Model;
         this.descuento = descuento;
     }
 
-    public float getPrecioVentaFinal() {
+    public BigDecimal getPrecioVentaFinal() {
         return precioVentaFinal;
     }
 
-    public void setPrecioVentaFinal(float precioVentaFinal) {
+
+    public void setPrecioVentaFinal(BigDecimal precioVentaFinal) {
         this.precioVentaFinal = precioVentaFinal;
     }
+
     public int getItemNum() {
         return itemNum;
     }
@@ -103,4 +113,13 @@ package com.example.omarchh.minegociotest.Model;
     public void setItemNum(int itemNum) {
         this.itemNum = itemNum;
     }
+
+    public String getObservacionProducto() {
+        return observacionProducto;
+    }
+
+    public void setObservacionProducto(String observacionProducto) {
+        this.observacionProducto = observacionProducto;
+    }
 }
+

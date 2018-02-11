@@ -1,11 +1,11 @@
 package com.example.omarchh.minegociotest.Controlador;
 
 import com.example.omarchh.minegociotest.ConexionBd.BdConnectionSql;
-import com.example.omarchh.minegociotest.Model.DetalleVenta;
-import com.example.omarchh.minegociotest.Model.ListProduct;
-import com.example.omarchh.minegociotest.Model.mProduct;
+import com.example.omarchh.minegociotest.Model.ProductoEnVenta;
+import com.example.omarchh.minegociotest.Model.mCabeceraPedido;
+import com.example.omarchh.minegociotest.Model.mCustomer;
+import com.example.omarchh.minegociotest.Model.mVendedor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,43 +14,67 @@ import java.util.List;
 
 public class ControladorVentas {
 
-    BdConnectionSql bdConnectionSql=new BdConnectionSql();
-    ListProduct listaProductos;
-    List<String> listaResultados;
-    DetalleVenta detalleVenta;
+    BdConnectionSql bdConnectionSql;
 
     public ControladorVentas(){
-        listaProductos=new ListProduct();
-        listaResultados=new ArrayList<>();
-        detalleVenta=new DetalleVenta();
+
+        bdConnectionSql = BdConnectionSql.getSinglentonInstance();
     }
 
-    public List<String> BusquedaProductoNombreCodigo(String p){
-        if(!listaResultados.isEmpty()) {
-            listaResultados.clear();
-        }
-        listaProductos.setmProducts(bdConnectionSql.getProductName(p,"",0,"","justName"));
-        for(int i=0;i<listaProductos.getLongitud();i++){
-            listaResultados.add(listaProductos.getmProducts().get(i).toString());
-        }
-        listaProductos.getLongitud();
-        return listaResultados;
+    public int verificarExistePedido() {
+        return bdConnectionSql.VerificarExistePedido();
     }
 
-     public mProduct GetProductBd(int id){
-        return bdConnectionSql.getProductbyId(id);
-    }
+    public mCabeceraPedido getCabeceraUltimoPedido(int id) {
 
-
-    public void AgregarProductoDetalleVenta(int id,float cantidad,String ProductName,float precio,float descuento){
-
-        // detalleVenta.AgregarProducto(id,cantidad,precio,ProductName,descuento);
-
-    }
-    public void ModificarProductoDetalleVenta(int position,int id,float cantidad,float precio,float descuento){
+        return bdConnectionSql.getCabeceraPedidoPorId(id);
 
     }
 
+    public List<ProductoEnVenta> getDetallePedidoId(int id) {
+
+        return bdConnectionSql.getDetallePedidoPorId(id);
+    }
+
+    public int CambiarEstadoPedido(int idCabeceraPedido, String identificador, String observacion) {
+
+        return bdConnectionSql.ModificarEstadoPedido(idCabeceraPedido, identificador, observacion, mCabeceraPedido.EstadoPedido.R.toString());
+
+    }
+
+    public int CambiarEstadoPedidoSuspender(int idCabeceraPedido) {
+
+        return bdConnectionSql.ModificarEstadoPedidoSuspendido(idCabeceraPedido, mCabeceraPedido.EstadoPedido.S.toString());
+
+    }
+
+    public int CambiarEstadoPedidoTemporal(int idCabeceraPedido) {
+        return bdConnectionSql.ModificarEstadoPedidoSuspendido(idCabeceraPedido, mCabeceraPedido.EstadoPedido.T.toString());
+    }
+
+    public int GenerarNuevoPedido() {
+
+        return bdConnectionSql.generarNuevoPedido();
+    }
+
+    public int GuardarValorVenta(int id, mCabeceraPedido cabeceraPedido) {
+
+        return bdConnectionSql.GuardarTotalPagoCabeceraPedido(id, cabeceraPedido);
+    }
+
+    public void GuardarCabeceraPedido(int id, mVendedor vendedor, mCustomer customer) {
+        bdConnectionSql.GuardarCabeceraPedido(id, vendedor, customer);
+    }
+
+    public void GuardarProductoDetallePedido(int idCabecera, ProductoEnVenta productoEnVenta, char c) {
+
+        bdConnectionSql.GuardarDetallePedido(idCabecera, productoEnVenta, c);
+    }
+
+    public List<mCabeceraPedido> getListaPedidosReserva(int id, int fechaInicio, int fechaFinal) {
+
+        return bdConnectionSql.getListCabeceraPedidos(fechaInicio, fechaFinal, id);
+    }
 
 
 

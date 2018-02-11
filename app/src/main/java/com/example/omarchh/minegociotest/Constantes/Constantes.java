@@ -13,25 +13,57 @@ public abstract class  Constantes {
     public static abstract class Empresa{
 
         public final static String CodigoEmpresa="C0001";
+        public static int idEmpresa;
     }
 
+    public static abstract class Usuario {
+
+        public static int idUsuario;
+    }
+
+    public static abstract class Tienda {
+
+        public final static int idTienda = 1;
+    }
+
+    public static abstract class Terminal {
+        public static int idTerminal;
+    }
+
+    public static abstract class DivisaPorDefecto {
+
+        public static final String parametroSimbolo = "simbolo";
+        public static String SimboloDivisa;
+    }
     private static abstract class bdConstantes{
 
         private final static String url="192.168.8.111:1433;instance=OMARCHPC";
         private final static String db="DB_A2B05D_bdNegocio";
         private final static String user="prueba";
         private final static String password="prueba";
+
     }
 
 
-    //private final static String url="192.168.8.111:1433;instance=OMARCHPC";
-   /* private final static String url="SQL7001.SmarterASP.NET";
+    /*    Local
+    private final static String url="192.168.8.111:1433;instance=OMARCHPC";
     private final static String db="DB_A2B05D_bdNegocio";
-    private final static String user="DB_A2B05D_bdNegocio_admin";
-    private final static String password="ochumioque1409";
-    public final static String urlConnection="jdbc:jtds:sqlserver://"+bdConstantes.url+":1433;databaseName="+bdConstantes.db+";user="+bdConstantes.user+";password="+bdConstantes.password+";";
+    private final static String user="prueba";
+    private final static String password="prueba";
 
     */
+
+    //SmarAsp
+    /*
+
+      private final static String url="SQL5037.site4now.net";
+        private final static String db="DB_A33BA8_omar140992";
+        private final static String user="DB_A33BA8_omar140992_admin";
+        private final static String password="1409Chumioque";
+
+     */
+
+
     public static abstract class UrlConnection{
        public final static String urlConnection="jdbc:jtds:sqlserver://"+bdConstantes.url+";databaseName="+bdConstantes.db+";user="+bdConstantes.user+";password="+bdConstantes.password+";"; }
 
@@ -40,41 +72,51 @@ public abstract class  Constantes {
         public final static String classForName="net.sourceforge.jtds.jdbc.Driver";
     }
 
-    public static abstract class EstadoBusqueda{
+    public static abstract class ParametrosCliente {
+        public final static String metodoGuardar = "cMetodoRealizar";
+        public final static String metodoBuscar = "MetodoBusqueda";
+        public final static int BusquedaPorId = 100;
+        public final static int BusquedaPorNombreApellido = 101;
+        public final static int TodosLosClientes = 102;
+        public final static String idCliente = "iIdCliente";
+        public final static String nuevoCliente = "sp_NuevoCliente";
+        public final static String editarCliente = "sp_EditarCliente";
+        public final static String nombreUnoCliente = "cPrimerNombre";
 
-        public final static String soloNombre="justName";
-        public final static String listaProducto="allProduct";
-        public final static String BusquedaProducto="searchProduct";
-
-
+        public final static String apellidoPaterno = "cApellidoPaterno";
+        public final static String apellidoMaterno = "cApellidoMaterno";
+        public final static String numeroTelefono = "cNumeroTelefono";
+        public final static String email = "cEmail";
+        public final static String direccion = "cDireccion";
     }
 
+    public static abstract class ParametrosVendedor {
 
+        public final static String IdVendedor = "iIdVendedor";
+        public final static String NombreUnoVendedor = "cPrimerNombre";
+        public final static String NombreDosVendedor = "cSegundoNombre";
+        public final static String ApellidoPaterno = "cApellidoPaterno";
+        public final static String ApellidoMaterno = "cApellidoMaterno";
+        public final static String Comision = "dComision";
+        public final static String MetodoBusqueda = "MetodoBusqueda";
+        public final static String parametro = "ParametroBusqueda";
+        public final static int BusquedaPorId = 107;
+        public final static int BusquedaPorNombre = 109;
+        public final static int TodosVendedores = 105;
+
+    }
 
     public static abstract class storedProcedure {
-        public final static String sp_getProduct="sp_getProduct";
-        public final static String getViewProduct="sp_allviewProduct";
+
+        public final static String sp_getCliente = "sp_buscarCliente";
+        public final static String sp_InsertarCliente = "sp_ingresarEditarCliente";
+        public final static String sp_getVendedor = "sp_BuscarVendedor";
+
         public final static String insertProduct="sp_insertProduct";
-        public final static String searchProcedure="sp_buscarProducto";
-        public final static String searchProductInReserve="sp_getProductReserve";
-        public final static String insertImageProduct="sp_IngresarImagen";
+        public final static String insertImageProduct = "sp_IngresarImagen";
         public final static String checkloginUser="sp_checkLoginUser";
-        public final static String getProduct="sp_getOneProduct";
         public final static String updateProduct="sp_editProduct";
-        public final static String saveAdditionalSalesPrice="sp_saveAdditionalPrice";
-        public final static String saveCustomer="sp_saveCustomer";
-    }
-    public static abstract class columnsProduct{
-        public final static String idProduct="iIdProduct";
-        public final static String key="cKey";
-        public final static String productName="cProductName";
-        public final static String unit="cUnit";
-        public final static String quantity="dQuantity";
-        public final static String quantityReserve="dQuantityReserve";
-        public final static String salesPrice="dSalesPrice";
-        public final static String purcharsePrice="dPurcharsePrice";
-        public final static String additionalInformation ="cAdditionalInformation";
-        public final static String imageFile="imageFile";
+
     }
     public static abstract class SimboloMoneda{
 
@@ -82,32 +124,8 @@ public abstract class  Constantes {
 
     }
 
-    public static abstract class DatosNombre{
-
-        public final static String IDPRODUCTO="iIdProduct";
-        public final static String CODIGOPRODUCTO="cKey";
-        public final static String NOMBREPRODUCTO="cProductName";
-        public final static String UNIDADPRODUCTO="cUnit";
-        public final static String CANTIDADPRODUCTO="dQuantity";
-        public final static String CANTIDADRESERVAPRODUCTO="dQuantityReserve";
-        public final static String PRECIOCOMPRAPRODUCTO="dPurcharsePrice";
-        public final static String PRECIOVENTAPRODUCTO="dSalesPrice";
-        public final static String INFORMACIONADICIONALPRODUCTO="cAdditionalInformation";
-
-
-
-    }
-    public static abstract class CantidadInformacion{
-
-        public final static String justNameProduct="justName";
-        public final static String listAllProduct="allProduct";
-        public final static String oneProduct="oneProduct";
-        public final static String productInReserve="productReserve";
-
-    }
     public static abstract class Parametros {
-        public final static String parameteriCodigoProducto="iCodigoProducto";
-        public final static String parameterCantidadInformacion="cCantidadInformacion";
+
         public final static String parameterBusqueda="cParametroBusqueda";
         public final static String parameterUser="cCodigoUsuario";
         public final static String parameterPassword="cPasswordUser";
@@ -123,16 +141,6 @@ public abstract class  Constantes {
         public final static String parameterUnidadProducto="cUnidadProducto";
         public final static String parameterInformacionAdicionalProducto="cInformacionAdicionalProducto";
         public final static String parameterImagen="@bImagen";
-        public final static String parameterPrecioAdicional="dPrecioAdicional";
-        public final static String parameterNombreCliente="cName";
-        public final static String parameterAliasCliente="cAlias";
-        public final static String parameterPrimerNumeroTelefono="cFirstPhoneNumber";
-        public final static String parameterSegundoNumeroTelefono="cSecondPhoneNumber";
-        public final static String parameterEmail="cEmail";
-        public final static String parameterNombreEmpresa="cBusinessName";
-        public final static String parameterNombreProveedor="cSupplierName";
-        public final static String parameterComentario="cComment";
-
 
     }
     public static abstract class AccesUser{
@@ -152,7 +160,8 @@ public abstract class  Constantes {
          public static final String TABLE_NAME="Usuario";
          public static final String User_Name="userName";
          public static final String User_Password="userPassword";
-
+         public static final String TABLE_DEVICE_BLUETOOTH = "DeviceAddress";
+         public static final String TABLE_OPTION_PRINT = "PrintDefault";
      }
 
      public static abstract class TransactionDbSqlLite{
@@ -163,6 +172,9 @@ public abstract class  Constantes {
                  +DBSQLITE_Usuario.User_Name+" TEXT NOT NULL,"
                  +DBSQLITE_Usuario.User_Password+" TEXT NOT NULL)";
 
+         public static final String Create_Table_Device = "CREATE TABLE DeviceAddress ( cDeviceAddress TEXT NOT NULL UNIQUE)";
+
+         public static final String Create_Table_Print_Default = "Create Table PrintDefault (cNamePrint TEXT NOT NULL UNIQUE)";
      }
      public static abstract class EstadoProducto{
 
@@ -170,7 +182,6 @@ public abstract class  Constantes {
          public static final String NuevoProducto="NuevoProducto";
          public static final String EstadoProducto="EstadoProducto";
      }
-
 
 
 

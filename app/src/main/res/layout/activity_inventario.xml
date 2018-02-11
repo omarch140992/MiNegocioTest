@@ -12,13 +12,13 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="false"
-        android:paddingLeft="10dp"
-        android:orientation="vertical"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        android:fillViewport="false"
+        android:orientation="vertical"
+        android:paddingLeft="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,74 +27,84 @@
             android:paddingRight="5dp"
             >
 
-            <ImageView
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="2dp"
-                android:layout_gravity="center"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:src="@drawable/image"/>
-
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:paddingTop="24dp">
+
+                <ImageView
+                    android:id="@+id/imageProduct"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/image"
+
+                    />
 
                 <ImageButton
+                    android:id="@+id/btnBuscarImagen"
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
+                    android:layout_alignBottom="@+id/imageProduct"
+                    android:layout_toStartOf="@+id/imageProduct"
                     android:backgroundTint="#ff8d1b"
-                    android:src="@drawable/gallery"
-                    android:id="@+id/btnBuscarImagen"
-                    android:elevation="5dp"/>
+                    android:elevation="5dp"
+                    android:src="@drawable/gallery" />
 
                 <ImageButton
                     android:id="@+id/btnCamaraImagen"
-                    android:elevation="5dp"
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
+                    android:layout_above="@+id/btnBuscarImagen"
+                    android:layout_toStartOf="@+id/imageProduct"
                     android:backgroundTint="#ff8d1b"
+                    android:elevation="5dp"
                     android:src="@drawable/camera" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="85dp"
-                android:gravity="center">
                 <ImageView
+                    android:id="@+id/imgFavorite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/car_sale"/>
-                <android.support.design.widget.TextInputLayout
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp" >
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@+id/imageProduct"
+                    android:layout_marginEnd="17dp"
+                    android:src="@drawable/favorite_star_off"
+                    android:tint="@android:color/darker_gray" />
 
-                    <EditText  android:layout_width="match_parent"
-                           android:layout_height="match_parent"
+            </RelativeLayout>
+
+
+            <Spinner
+                android:id="@+id/spinner_categoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </Spinner>
+
+            <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginLeft="10dp">
+
+                <EditText
+                    android:id="@+id/edtProductName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                         android:ems="10"
                         android:hint="Nombre del producto"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:id="@+id/edtProductName"
                         />
 
-                </android.support.design.widget.TextInputLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="85dp"
-                android:gravity="center">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/car_sale"/>
+            </android.support.design.widget.TextInputLayout>
                 <android.support.design.widget.TextInputLayout
-                    android:layout_marginLeft="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp" >
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="10dp">
 
                     <EditText
                         android:id="@+id/editKey"
@@ -106,85 +116,88 @@
                         android:maxLines="1"/>
 
                 </android.support.design.widget.TextInputLayout>
-            </LinearLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="200dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="10dp">
+
+                <EditText
+                    android:id="@+id/edtSalesPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:hint="Valor de venta"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="85dp"
 
                 android:orientation="horizontal">
+
                 <ImageView
-                    android:layout_gravity="left|center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/barcode"/>
+                    android:layout_gravity="left|center"
+                    android:src="@drawable/barcode" />
+
                 <android.support.design.widget.TextInputLayout
-                    android:layout_marginLeft="10dp"
+
                     android:layout_width="200dp"
-                    android:layout_height="80dp" >
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="10dp">
 
                     <EditText
-                        android:focusable="false"
                         android:id="@+id/edtcodeBar"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ems="10"
+                        android:focusable="false"
                         android:hint="Codigo de Barras"
                         android:inputType="text"
-                        android:maxLines="1"/>
+                        android:maxLines="1" />
 
                 </android.support.design.widget.TextInputLayout>
+
                 <Button
 
-                    android:backgroundTint="#ff8d1b"
-                    android:textStyle="bold"
                     android:id="@+id/btnScan"
                     android:layout_width="90dp"
                     android:layout_height="match_parent"
+                    android:backgroundTint="#ff8d1b"
+                    android:drawableLeft="@drawable/barcode_scan"
                     android:text="Scan"
                     android:textColor="#ffffff"
-                    android:drawableLeft="@drawable/barcode_scan"
-                    />
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="85dp"
-                android:gravity="center">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/description"/>
-                <android.support.design.widget.TextInputLayout
-                    android:layout_marginLeft="10dp"
+            <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="80dp" >
+                android:layout_height="80dp"
+                android:layout_marginLeft="10dp">
 
                     <EditText
-                        android:focusable="false"
                         android:id="@+id/edtCategoryProduct"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ems="10"
+                        android:focusable="false"
                         android:hint="Categoria del producto"
                         android:inputType="none"
                         android:maxLines="1"/>
 
                 </android.support.design.widget.TextInputLayout>
 
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="85dp"
-                android:gravity="center">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/description"/>
-                <android.support.design.widget.TextInputLayout
-                    android:layout_marginLeft="10dp"
+            <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="80dp" >
+                android:layout_height="80dp"
+                android:layout_marginLeft="10dp">
 
                     <EditText
                         android:id="@+id/edtAdditionalInformation"
@@ -196,7 +209,6 @@
                         android:maxLines="1"/>
 
                 </android.support.design.widget.TextInputLayout>
-            </LinearLayout>
 
 
             <LinearLayout
@@ -211,8 +223,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:text="Cantidad"
-                        android:gravity="center"/>
+                        android:gravity="center"
+                        android:text="Cantidad" />
 
                     <EditText
                         android:id="@+id/edtQuantity"
@@ -234,8 +246,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:text="Cantidad en Reserva"
-                        android:gravity="center"/>
+                        android:gravity="center"
+                        android:text="Cantidad en Reserva" />
 
                     <EditText
                         android:id="@+id/edtQuantityReserve"
@@ -260,8 +272,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:text="Precio Compra"
-                        android:gravity="center"/>
+                        android:gravity="center"
+                        android:text="Precio Compra" />
 
                     <EditText
                         android:id="@+id/edtPurcharsePrice"
@@ -273,26 +285,6 @@
                         android:inputType="number|numberDecimal" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:gravity="center"
-                        android:text="Precio Venta" />
-
-                    <EditText
-                        android:id="@+id/edtSalesPrice"
-                        android:layout_width="match_parent"
-                        android:hint="0"
-                        android:layout_height="60dp"
-                        android:layout_margin="5dp"
-                        android:gravity="center"
-                        android:inputType="number|numberDecimal" />
-                </LinearLayout>
 
             </LinearLayout>
 
@@ -329,11 +321,11 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.RecyclerView
-                        android:visibility="gone"
                         android:id="@+id/rvAdditionalPrice"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:scrollbars="horizontal"
+                        android:visibility="gone"
                         app:cardCornerRadius="3dp"
                         app:cardUseCompatPadding="true">
 
@@ -350,6 +342,12 @@
 
             </LinearLayout>
 
+            <com.theartofdev.edmodo.cropper.CropImageView
+                android:id="@+id/cropImageView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
             <CheckBox
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -357,29 +355,29 @@
             <CheckBox
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="Control por peso"/>
+                android:text="Control de stock" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <ImageButton
-                    android:backgroundTint="#000000"
                     android:id="@+id/btnInventarioCancel"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:backgroundTint="#000000"
                    android:padding="5dp"
                     android:src="@drawable/cancel" />
 
                 <ImageButton
-                    android:backgroundTint="#000000"
-
                     android:id="@+id/btnInventarioAceptar"
+
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:backgroundTint="#000000"
                     android:padding="5dp"
                     android:src="@drawable/content_save_white" />
 

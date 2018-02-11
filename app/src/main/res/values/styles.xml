@@ -6,6 +6,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+
+    </style>
+
+    <style name="Error" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textColor">#FF9800</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -19,10 +25,9 @@
 
     <style name="LabelFloatingButton">
         <item name="android:padding">10dp</item>
-        <item name="android:background">#8a000000</item>
+        <item name="android:background">@drawable/backgroundtext</item>
         <item name="android:textColor">#ffffff</item>
     </style>
-
 
 
 </resources>

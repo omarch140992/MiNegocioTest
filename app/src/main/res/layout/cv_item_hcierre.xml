@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#d4d4d4"
+    android:paddingBottom="0.5dp">
+
+    <RelativeLayout
+        android:id="@+id/rlCierre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="Fecha \nde apertura"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <TextView
+
+            android:id="@+id/txtFechaApertura"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView4"
+            android:layout_alignBottom="@+id/textView4"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="17dp"
+            android:text="fecha apertura"
+            android:textColor="#1b2289"
+            android:textSize="16sp" />
+
+        <TextView
+
+            android:id="@+id/txtFechaCierre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/txtFechaApertura"
+            android:layout_below="@+id/txtFechaApertura"
+
+            android:text="fecha cierre"
+            android:textColor="#1b2289"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+
+</android.support.constraint.ConstraintLayout>

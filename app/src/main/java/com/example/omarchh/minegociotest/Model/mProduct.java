@@ -1,10 +1,6 @@
 package com.example.omarchh.minegociotest.Model;
 
-import android.graphics.Bitmap;
-import android.util.Base64;
-
-import java.io.ByteArrayOutputStream;
-import java.nio.ByteBuffer;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -24,6 +20,11 @@ public class mProduct {
     private List<Float> additionalSalesPrice;
     private String cAdditionalInformation;
     private byte[] bImage;
+    private BigDecimal precioVenta;
+    private BigDecimal precioCompra;
+
+
+    private String observacionProducto;
 
 
 
@@ -34,6 +35,50 @@ public class mProduct {
         this.dQuantity=dQuantity;
         this.dSalesPrice=dSalesPrice;
         this.bImage=bImage;
+    }
+
+    public mProduct() {
+        this.idProduct=0;
+        this.cProductName="";
+        this.cKey="";
+        this.dQuantityReserve=0;
+        this.dQuantity=0;
+        this.dPurcharsePrice=0;
+        this.dSalesPrice=0;
+        this.cAdditionalInformation="";
+        this.cUnit="";
+        this.bImage=null;
+        this.precioCompra = new BigDecimal(0);
+        this.precioVenta = new BigDecimal(0);
+    }
+
+    public mProduct(int idProduct, String cKey, String cProductName, String cUnit, float dQuantity, float dQuantityReserve, float dPurcharsePrice, float dSalesPrice, String cAdditionalInformation,byte[]img) {
+
+        this.idProduct=idProduct;
+        this.cKey = cKey;
+        this.cProductName = cProductName;
+        this.cUnit = cUnit;
+        this.dQuantity = dQuantity;
+        this.dQuantityReserve = dQuantityReserve;
+        this.dPurcharsePrice = dPurcharsePrice;
+        this.dSalesPrice = dSalesPrice;
+        this.cAdditionalInformation = cAdditionalInformation;
+        this.bImage=img;
+
+    }
+
+    public mProduct(int idProduct, String cKey, String cProductName, String cUnit, float dQuantity, float dQuantityReserve, BigDecimal precioCompra, BigDecimal precioVenta, String cAdditionalInformation, byte[] bImage) {
+        this.idProduct = idProduct;
+        this.cKey = cKey;
+        this.cProductName = cProductName;
+        this.cUnit = cUnit;
+        this.dQuantity = dQuantity;
+        this.dQuantityReserve = dQuantityReserve;
+        this.precioVenta = precioVenta;
+        this.precioCompra = precioCompra;
+        this.cAdditionalInformation = cAdditionalInformation;
+        this.bImage = bImage;
+
     }
 
     public int getIdProduct() {
@@ -50,39 +95,9 @@ public class mProduct {
 
     public void setbImage(byte[] imageData) {
 
-        this.bImage =imageData;
+        this.bImage = imageData;
     }
 
-
-    public mProduct() {
-        this.idProduct=0;
-        this.cProductName="";
-        this.cKey="";
-        this.dQuantityReserve=0;
-        this.dQuantity=0;
-        this.dPurcharsePrice=0;
-        this.dSalesPrice=0;
-        this.cAdditionalInformation="";
-        this.cUnit="";
-        this.bImage=null;
-
-    }
-
-
-    public mProduct(int idProduct, String cKey, String cProductName, String cUnit, float dQuantity, float dQuantityReserve, float dPurcharsePrice, float dSalesPrice, String cAdditionalInformation,byte[]img) {
-
-        this.idProduct=idProduct;
-        this.cKey = cKey;
-        this.cProductName = cProductName;
-        this.cUnit = cUnit;
-        this.dQuantity = dQuantity;
-        this.dQuantityReserve = dQuantityReserve;
-        this.dPurcharsePrice = dPurcharsePrice;
-        this.dSalesPrice = dSalesPrice;
-        this.cAdditionalInformation = cAdditionalInformation;
-        this.bImage=img;
-
-    }
     public String getcKey() {
         return cKey;
     }
@@ -160,4 +175,31 @@ public class mProduct {
         final String nuevaLinea=System.getProperty("line.separator");
         return " "+cKey+nuevaLinea+ " "+cProductName;
     }
+
+
+    public BigDecimal getPrecioVenta() {
+        return precioVenta;
+    }
+
+    public void setPrecioVenta(BigDecimal precioVenta) {
+        this.precioVenta = precioVenta;
+    }
+
+    public BigDecimal getPrecioCompra() {
+        return precioCompra;
+    }
+
+    public void setPrecioCompra(BigDecimal precioCompra) {
+        this.precioCompra = precioCompra;
+    }
+
+    public String getObservacionProducto() {
+        return observacionProducto;
+    }
+
+    public void setObservacionProducto(String observacionProducto) {
+        this.observacionProducto = observacionProducto;
+    }
+
+
 }

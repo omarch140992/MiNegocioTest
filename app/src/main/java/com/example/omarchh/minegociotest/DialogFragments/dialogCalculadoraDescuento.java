@@ -12,12 +12,11 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.omarchh.minegociotest.Constantes.Constantes;
 import com.example.omarchh.minegociotest.R;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 
 /**
  * Created by OMAR CHH on 30/11/2017.
@@ -25,9 +24,9 @@ import java.text.DecimalFormat;
 
 public class dialogCalculadoraDescuento extends DialogFragment implements View.OnClickListener{
 
-    int posicionCaracterModificado;
-    int posicionComa=0;
-    int numeroCaracteresIngresados;
+    byte tipoDescuento; // 0=Sin tipo descuento 1=Por valor  2=Por procentaje
+    BigDecimal valorComparacion;
+    BigDecimal valorMaximoPorcentajeDescuento;
     String cadenaIngresada;
     String cadenaDescuento;
     Context context;
@@ -35,27 +34,37 @@ public class dialogCalculadoraDescuento extends DialogFragment implements View.O
     RadioButton rbValue,rbPercent;
     Button btnNumber1,btnNumber2,btnNumber3,btnNumber4,btnNumber5,btnNumber6,btnNumber7,btnNumber8,btnNumber9,btnNumber0,btnCancel,btnSalir,btnGuardar;
     ImageButton btnDelete;
-    float precioOriginal;
-    Double valorDescuento;
+
     TextView txtPrecioOriginal,txtValorDescuento;
     String simboloPorcentaje;
     Dialog dialog;
-    public dialogCalculadoraDescuento(Context context){
+    BigDecimal precioOriginal;
+    BigDecimal valorDescuento;
+    BigDecimal cantidadCobrar;
+    Descuento descuento;
+
+    public dialogCalculadoraDescuento(Context context, BigDecimal cantidadCobrar, BigDecimal valorDescuento, byte tipoDescuento) {
         this.context=context;
+        this.cantidadCobrar = cantidadCobrar;
+        this.valorDescuento = valorDescuento;
+        this.tipoDescuento = tipoDescuento;
     }
 
+    public void setListenerDescuento(Descuento descuento) {
+
+        this.descuento = descuento;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder=new AlertDialog.Builder(context);
         View v= ((Activity)context).getLayoutInflater().inflate(R.layout.calculador_descuento,null);
-        valorDescuento =0.00d;
         cadenaIngresada="";
         simboloPorcentaje="%";
         //---------Float------//
-        precioOriginal=0.00f;
-        valorDescuento =0.00d;
-
+        valorComparacion = new BigDecimal(0);
+        precioOriginal = cantidadCobrar;
+        valorMaximoPorcentajeDescuento = new BigDecimal(99.00);
 
         //----------TextView----------//
 
@@ -85,23 +94,23 @@ public class dialogCalculadoraDescuento extends DialogFragment implements View.O
         rbValue=(RadioButton)v.findViewById(R.id.rbValue);
         rbPercent=(RadioButton)v.findViewById(R.id.rbPercent);
         //-----String------------//
+        if (valorDescuento.compareTo(new BigDecimal(0.00)) == 0) {
+            cadenaDescuento = "00.00";
+        } else {
+            cadenaDescuento = String.format("%.2f", valorDescuento);
+        }
 
-        cadenaDescuento="00.00";
-       posicionCaracterModificado=cadenaDescuento.length()-1;
-        posicionComa=cadenaDescuento.length()-3;
-        numeroCaracteresIngresados=1;
         //----------Enviar Valores----///
-
-        txtPrecioOriginal.setText("S/ "+String.format("%.2f",precioOriginal));
-        txtValorDescuento.setText("% "+cadenaDescuento);
+        txtPrecioOriginal.setText(Constantes.DivisaPorDefecto.SimboloDivisa + String.format("%.2f", precioOriginal));
+        txtValorDescuento.setText(cadenaDescuento);
         rbPercent.setChecked(true);
-
+        valorComparacion = valorMaximoPorcentajeDescuento;
         setListenerClick();
 
         //----------------------------------//
         dialog=builder.setView(v).create();
 
-
+        dialog.setCanceledOnTouchOutside(false);
         return dialog;
     }
 
@@ -112,107 +121,121 @@ public class dialogCalculadoraDescuento extends DialogFragment implements View.O
         switch (v.getId()){
 
             case R.id.btnNumber0:
-                IngresarCadenaCalculadora("0");
+                ModificarValorDescuentoPorcentaje(new BigDecimal(0));
+                VerificarValorDescuento();
                 break;
             case R.id.btnCancelar:
                 dialog.dismiss();
                 break;
             case R.id.btnGuardar:
+                GuardarInformacionDescuento();
+                dialog.dismiss();
                 break;
             case R.id.btnNumber1:
-                IngresarCadenaCalculadora("1");
+                ModificarValorDescuentoPorcentaje(new BigDecimal(1));
+                VerificarValorDescuento();
                 break;
             case R.id.btnNumber2:
-                IngresarCadenaCalculadora("2");
+                ModificarValorDescuentoPorcentaje(new BigDecimal(2));
+                VerificarValorDescuento();
                 break;
             case R.id.btnNumber3:
-                IngresarCadenaCalculadora("3");
+                ModificarValorDescuentoPorcentaje(new BigDecimal(3));
+                VerificarValorDescuento();
                 break;
             case R.id.btnNumber4:
-                IngresarCadenaCalculadora("4");
+                ModificarValorDescuentoPorcentaje(new BigDecimal(4));
+                VerificarValorDescuento();
                 break;
             case R.id.btnNumber5:
-                IngresarCadenaCalculadora("5");
+                ModificarValorDescuentoPorcentaje(new BigDecimal(5));
+                VerificarValorDescuento();
                 break;
             case R.id.btnNumber6:
-                IngresarCadenaCalculadora("6");
+                ModificarValorDescuentoPorcentaje(new BigDecimal(6));
+                VerificarValorDescuento();
                 break;
             case R.id.btnNumber7:
-                IngresarCadenaCalculadora("7");
+                ModificarValorDescuentoPorcentaje(new BigDecimal(7));
+                VerificarValorDescuento();
                 break;
             case R.id.btnNumber8:
-                IngresarCadenaCalculadora("8");
+                ModificarValorDescuentoPorcentaje(new BigDecimal(8));
+                VerificarValorDescuento();
                 break;
             case R.id.btnNumber9:
-                IngresarCadenaCalculadora("9");
+                ModificarValorDescuentoPorcentaje(new BigDecimal(9));
+                VerificarValorDescuento();
                 break;
             case R.id.btnNumberDelete:
                 EliminarCifras();
                 EnviarDatoTexto();
                 break;
             case R.id.btnNumberCancel:
-               valorDescuento=0d;
+                valorDescuento = new BigDecimal(0);
+                EnviarDatoTexto();
+                break;
+            case R.id.rbPercent:
+                valorComparacion = valorMaximoPorcentajeDescuento;
+                validarCantidadPorcentajeDescuento();
+                EnviarDatoTexto();
+                break;
+            case R.id.rbValue:
+                valorComparacion = precioOriginal;
+                validarCantidadPorValor();
                 EnviarDatoTexto();
                 break;
         }
 
     }
 
-    public void ValorDescuento(){
-        VerificarValorDescuento();
+    public void VerificarValorDescuento(){
+
+        if (rbPercent.isChecked()) {
+            validarCantidadPorcentajeDescuento();
+            tipoDescuento = 2;
+        } else if (rbValue.isChecked()) {
+            validarCantidadPorValor();
+            tipoDescuento = 1;
+        }
         EnviarDatoTexto();
     }
 
+    public void validarCantidadPorcentajeDescuento() {
 
-    public void IngresarCadenaCalculadora(String caracter){
-
-
-         cadenaIngresada=cadenaIngresada+caracter;
-
-         if(cadenaIngresada.length()==2){
-
-             cadenaIngresada="."+cadenaIngresada;
-         }
-
-
-
-
+        if (valorDescuento.compareTo(valorComparacion) > 0) {
+            valorDescuento = new BigDecimal(99.00);
+        }
 
 
     }
 
-    public void ModificarValorDescuentoPorcentaje(double valorIngresado){
+    public void validarCantidadPorValor() {
 
-        if(valorDescuento==0.00d) {
-            valorDescuento = valorIngresado / 100;
-        }
-        else if(valorDescuento>0.00d){
-            valorDescuento=(valorDescuento*10)+(valorIngresado/100);
+        if (valorDescuento.compareTo(valorComparacion) >= 0) {
+            valorDescuento = precioOriginal.subtract(new BigDecimal(0.10));
         }
     }
 
-    public void EliminarCifras(){
-        if(valorDescuento>0.00d) {
-            valorDescuento = valorDescuento /10;
-        }
-        else if(valorDescuento<=0.0099d){
-            valorDescuento=0.00d;
+    public void ModificarValorDescuentoPorcentaje(BigDecimal valorIngresado) {
 
-        }
-        Toast.makeText(context,String.valueOf(valorDescuento),Toast.LENGTH_LONG).show();
-
+        valorDescuento = (valorDescuento.multiply(new BigDecimal(10))).add(valorIngresado.divide(new BigDecimal(100)));
     }
-    public void VerificarValorDescuento(){
 
-        if(valorDescuento>=99.00d){
-            valorDescuento=99.00d;
-        }
+    public void EliminarCifras() {
+
+        String nuevaCadena = "";
+        nuevaCadena = txtValorDescuento.getText().toString();
+        nuevaCadena = nuevaCadena.substring(0, nuevaCadena.length() - 1);
+        valorDescuento = new BigDecimal(nuevaCadena).divide(new BigDecimal(10));
+
+
     }
 
     public void EnviarDatoTexto(){
 
 
-        txtValorDescuento.setText("%"+String.format("%.2f", valorDescuento));
+        txtValorDescuento.setText(String.format("%.2f", valorDescuento));
     }
 
     public void setListenerClick(){
@@ -230,8 +253,25 @@ public class dialogCalculadoraDescuento extends DialogFragment implements View.O
         btnNumber7.setOnClickListener(this);
         btnNumber8.setOnClickListener(this);
         btnNumber9.setOnClickListener(this);
+        rbValue.setOnClickListener(this);
+        rbPercent.setOnClickListener(this);
+    }
 
-   }
+    public void GuardarInformacionDescuento() {
+
+        if (valorDescuento.compareTo(new BigDecimal(0.00)) == 0) {
+            tipoDescuento = 0;
+            descuento.InformacionDescuento(tipoDescuento, new BigDecimal(0.00));
+        } else if (valorDescuento.compareTo(new BigDecimal(0.01)) > 0) {
+            descuento.InformacionDescuento(tipoDescuento, valorDescuento);
+        }
+
+    }
+
+    public interface Descuento {
+
+        public void InformacionDescuento(byte tipoDescuento, BigDecimal valorDescuento);
+    }
 
 
 }

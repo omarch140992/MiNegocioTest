@@ -1,8 +1,9 @@
 package com.example.omarchh.minegociotest.Fragment;
 
 
+import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,34 +20,33 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.omarchh.minegociotest.Activitys.AddEditProduct;
 import com.example.omarchh.minegociotest.ConexionBd.BdConnectionSql;
 import com.example.omarchh.minegociotest.Constantes.Constantes;
 import com.example.omarchh.minegociotest.Controlador.ControladorProductos;
-import com.example.omarchh.minegociotest.Model.CabeceraVenta;
+import com.example.omarchh.minegociotest.DialogFragments.DialogProductInformation;
+import com.example.omarchh.minegociotest.InterfaceDetalleCarritoVenta;
 import com.example.omarchh.minegociotest.Model.mProduct;
+import com.example.omarchh.minegociotest.R;
 import com.example.omarchh.minegociotest.RvAdapter;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.example.omarchh.minegociotest.Activitys.AddEditProduct;
-import com.example.omarchh.minegociotest.R;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentInventario extends Fragment implements View.OnClickListener ,TextWatcher{
+public class FragmentInventario extends Fragment implements View.OnClickListener, TextWatcher, InterfaceDetalleCarritoVenta {
 
+    DialogProductInformation dialogProductInformation;
+    String parametroBusqueda;
     ControladorProductos c;
     boolean escaneo=true;
     EditText searchView;
-    Button btnScan;
-    int w;
-    int h;
+    ImageButton btnScan;
     Button btnAgregarProducto;
     Button btnProductosEnReserva;
     RecyclerView rv;
@@ -59,6 +59,7 @@ public class FragmentInventario extends Fragment implements View.OnClickListener
     ImageButton imgSearch;
     TextView txtTitulo1;
     TextView txtTitulo2;
+    int idProducto;
     public FragmentInventario() {
 
     }
@@ -71,6 +72,8 @@ public class FragmentInventario extends Fragment implements View.OnClickListener
 
         c=new ControladorProductos(getContext());
         View rootView=inflater.inflate(R.layout.fragment_fragment_inventario, container, false);
+        parametroBusqueda = "";
+        idProducto = 0;
         txtTitulo1=(TextView)rootView.findViewById(R.id.txtTitulo1);
         txtTitulo2=(TextView)rootView.findViewById(R.id.txtTitulo2);
         rv=(RecyclerView)rootView.findViewById(R.id.rvInventario);
@@ -82,7 +85,7 @@ public class FragmentInventario extends Fragment implements View.OnClickListener
         bdConnectionSql=new BdConnectionSql();
         btnAgregarProducto=(Button)rootView.findViewById(R.id.btnAgregarProducto);
         btnProductosEnReserva=(Button)rootView.findViewById(R.id.btnReservaProducto);
-        btnScan=(Button)rootView.findViewById(R.id.btnScanProduct);
+        btnScan = (ImageButton) rootView.findViewById(R.id.btnScanProduct);
         searchView=(EditText)rootView.findViewById(R.id.sv_Product);
         btnAgregarProducto.setOnClickListener(this);
         btnProductosEnReserva.setOnClickListener(this);
@@ -90,34 +93,18 @@ public class FragmentInventario extends Fragment implements View.OnClickListener
         mProductList=new ArrayList<>();
         rvAdapter=new RvAdapter(getContext(),1);
         rv.setAdapter(rvAdapter);
-        w=0;
-        h=0;
+        searchView.addTextChangedListener(this);
+
         DisplayMetrics metrics=new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        w=metrics.widthPixels;
-        h=metrics.heightPixels;
 
         imgSearch.setOnClickListener(this);
-        imgSearch.getLayoutParams().height=h*1/16;
-        searchView.addTextChangedListener(this);
-        searchView.getLayoutParams().width=w*3/5;
+        rvAdapter.setInterfaceDetalleVenta(this);
 
-        imgSearch.getLayoutParams().width=w*1/7;
-
-        searchView.getLayoutParams().height=h*1/16;
-        btnScan.getLayoutParams().width=w*1/4;
-        btnAgregarProducto.getLayoutParams().width=w*2/5;
-        btnProductosEnReserva.getLayoutParams().width=w*2/5;
-
-        new DownloadList().execute();
+        new DescargarProductos().execute(parametroBusqueda, "");
 
         return rootView;
     }
-
-
-
-
-
     @Override
     public void onClick(View v) {
 
@@ -125,23 +112,20 @@ public class FragmentInventario extends Fragment implements View.OnClickListener
         if(v.getId()==R.id.btnAgregarProducto){
             Intent intentInventario=new Intent(getContext(), AddEditProduct.class);
             intentInventario.putExtra(Constantes.EstadoProducto.EstadoProducto,Constantes.EstadoProducto.NuevoProducto);
+            intentInventario.putExtra("idProducto", 0);
             startActivity(intentInventario);
 
         }
         if(v.getId()==R.id.btnReservaProducto){
 
             rvAdapter.clear();
-            new ProductInReserve().execute();
 
         }
         if(v.getId()==R.id.btnScanProduct){
             ScanCode();
         }
         if(v.getId()==R.id.btnBuscarProducto){
-            if(!searchView.getText().toString().isEmpty()) {
-                rvAdapter.clear();
-                new SearchProducto().execute(searchView.getText().toString());
-            }
+
         }
     }
 
@@ -164,8 +148,6 @@ public class FragmentInventario extends Fragment implements View.OnClickListener
 
         searchView.setText(scanContent);
         rvAdapter.clear();
-        new SearchProducto().execute(scanContent);
-        Toast.makeText(getActivity(),scanContent,Toast.LENGTH_LONG).show();
 
     }
 
@@ -185,7 +167,7 @@ public class FragmentInventario extends Fragment implements View.OnClickListener
         if(regreso) {
             if(!escaneo) {
                 rvAdapter.clear();
-                new DownloadList().execute();
+                new DescargarProductos().execute("", "");
             }
         }
         escaneo=false;
@@ -205,110 +187,63 @@ public class FragmentInventario extends Fragment implements View.OnClickListener
 
     @Override
     public void afterTextChanged(Editable s) {
-
-        if(searchView.getText().toString().isEmpty()){
-            new DownloadList().execute();
-        }
+        parametroBusqueda = s.toString();
+        new DescargarProductos().execute(parametroBusqueda, "");
     }
 
+    @Override
+    public void CantidadProductosEnCarrito(int cantidad) {
 
-    private class ProductInReserve extends  AsyncTask<Void,Void,List<mProduct>>{
+    }
 
+    @Override
+    public void InformacionUltimoProducto(String nombre, String precio) {
+
+    }
+
+    @Override
+    public void PasarInformacionProductoaDetalleVenta(int id) {
+        DialogFragment dialogFragment = new DialogProductInformation(getContext(), id);
+        dialogFragment.show(((Activity) getContext()).getFragmentManager(), "producto");
+    }
+
+    public void CargarListaEnPantalla(List<mProduct> list) {
+
+        rvAdapter.AddProduct(list);
+
+    }
+
+    private class DescargarProductos extends AsyncTask<String, Void, List<mProduct>> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+
             rv.setVisibility(View.GONE);
             mProgressBar.setVisibility(View.VISIBLE);
         }
 
-
         @Override
-        protected List<mProduct> doInBackground(Void... params) {
-            return ViewProductInReserve();
-        }
-        @Override
-        protected void onPostExecute(List<mProduct> mProductList) {
-            super.onPostExecute(mProductList);
-            mProgressBar.setVisibility(View.GONE);
-            rv.setVisibility(View.VISIBLE);
-            CargarListaEnPantalla(mProductList);
-        }
-    }
+        protected List<mProduct> doInBackground(String... strings) {
+            if (strings[0].equals("") && strings[1].equals("")) {
+                //  return c.obtenerListaProductos();
+                return c.getListaProductos();
+            } else if (!strings[0].equals("") && strings[1].equals("")) {
+                //return c.obtenerProductoPorParametro(strings[0]);
+                return c.getListaProductosPorParametro(strings[0]);
+            } else if (!strings[0].equals("") && strings[1].equals("res")) {
 
-    private class SearchProducto extends  AsyncTask<String,Void,List<mProduct>>{
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            rv.setVisibility(View.GONE);
-            mProgressBar.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected List<mProduct> doInBackground(String... params) {
-
-          return SearchProduct(params[0]);
-        }
-
-        @Override
-        protected void onPostExecute(List<mProduct> mProductList) {
-            super.onPostExecute(mProductList);
-            mProgressBar.setVisibility(View.GONE);
-            rv.setVisibility(View.VISIBLE);
-            CargarListaEnPantalla(mProductList);
-        }
-    }
-
-    private class DownloadList extends AsyncTask<Void,Void,List<mProduct>>{
-        @Override
-        protected void onPreExecute() {
-            rv.setVisibility(View.GONE);
-            mProgressBar.setVisibility(View.VISIBLE);
-            super.onPreExecute();
-        }
-
-        @Override
-        protected List<mProduct> doInBackground(Void... params) {
-
-            return c.mostrarListaProducto();
-        }
-        @Override
-        protected void onPostExecute(List<mProduct> mProductList) {
-            if(mProductList!=null) {
-                super.onPostExecute(mProductList);
-                mProgressBar.setVisibility(View.GONE);
-                rv.setVisibility(View.VISIBLE);
-
-                CargarListaEnPantalla(mProductList);
             }
+
+            return null;
         }
 
-
-    }
-
-
-    public void CargarListaEnPantalla(List<mProduct> list){
-
-            rvAdapter.AddProduct(list);
-
-    }
-    public List<mProduct> SearchProduct(String parametro){
-      return  c.BuscarProducto(parametro);
-    }
-
-    public List<mProduct> ViewProductInReserve(){
-
-        List<mProduct>list=new ArrayList<>();
-
-        try {
-
-            list=bdConnectionSql.getProductInReserve();
-        } catch (SQLException e) {
-            e.printStackTrace();
-
+        @Override
+        protected void onPostExecute(List<mProduct> mProductList) {
+            super.onPostExecute(mProductList);
+            mProgressBar.setVisibility(View.GONE);
+            rv.setVisibility(View.VISIBLE);
+            CargarListaEnPantalla(mProductList);
         }
-
-        return list;
     }
 
 }

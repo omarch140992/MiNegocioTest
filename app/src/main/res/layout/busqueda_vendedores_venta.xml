@@ -10,27 +10,39 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
         android:layout_weight="1.5"
         android:gravity="center|left"
-        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
         >
+
         <ImageButton
+            android:id="@+id/imgArrowBack"
             style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/arrow_back_simple"/>
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/arrow_back_simple" />
 
         <EditText
-           android:layout_width="match_parent"
+            android:id="@+id/edtBusquedaVendedor"
+            android:layout_width="150dp"
            android:layout_height="match_parent"
+            android:layout_marginBottom="15dp"
            android:ems="10"
            android:hint="Nombre del Vendedor"
            android:inputType="text"
            android:maxLines="1"
-           android:id="@+id/edtBusquedaVendedor"
-           android:layout_marginBottom="15dp"
             />
 
+        <Button
+            android:id="@+id/btnAgregarVendedor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#ffa03b"
+            android:text="Añadir Vendedor"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:visibility="gone" />
 
 
     </LinearLayout>
@@ -39,13 +51,13 @@
         android:layout_height="0dp"
         android:layout_weight="5"
         >
-        <ListView
-            android:scrollbars="vertical"
-            android:id="@+id/listViewVendedores"
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvVendedoresParaVenta"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </ListView>
+        </android.support.v7.widget.RecyclerView>
     </LinearLayout>
 </LinearLayout>
 

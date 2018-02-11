@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+
+
+    >
+
+    <LinearLayout
+        android:layout_width="100dp"
+        android:layout_height="120dp"
+        android:background="#949494"
+        android:orientation="vertical"
+        android:padding="0.1dp">
+
+        <ImageView
+
+            android:id="@+id/imageArticuloGrid"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="#ffffff"
+            android:scaleType="centerCrop"
+            android:src="@drawable/atom" />
+
+        <TextView
+            android:id="@+id/txtNombreArticuloGrid"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:background="#949494"
+            android:gravity="center"
+            android:maxLines="2"
+            android:text="TextView"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="#ffffff"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+</FrameLayout>

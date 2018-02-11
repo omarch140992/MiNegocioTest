@@ -22,31 +22,37 @@
             android:id="@+id/nav_Proveedores"
             android:icon="@drawable/ic_truck_black_36dp"
             android:title="Proveedores" />
-
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_Registros"
+            android:icon="@drawable/numberdisplay"
+            android:title="Registros"></item>
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nav_CuentasCliente"
+                android:icon="@drawable/ic_content_save_black_18dp"
+                android:title="Cuentas de clientes(A Crédito)">
+
+            </item>
+
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_ControlCaja"
+                android:icon="@drawable/ic_content_save_black_18dp"
+                android:title="Control de caja">
+
+            </item>
+        </menu>
+    </item>
+    <item android:title="Configuraciones">
+        <menu>
+            <item
+                android:id="@+id/nav_Impresoras"
+                android:icon="@drawable/printer"
+                android:title="Impresoras"
+
+                ></item>
         </menu>
     </item>
 

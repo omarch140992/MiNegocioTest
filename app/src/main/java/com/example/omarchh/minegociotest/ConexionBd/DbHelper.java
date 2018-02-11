@@ -21,14 +21,53 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
         db.execSQL(Constantes.TransactionDbSqlLite.Create_Table_User);
-
+        db.execSQL(Constantes.TransactionDbSqlLite.Create_Table_Device);
+        db.execSQL(Constantes.TransactionDbSqlLite.Create_Table_Print_Default);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+    public Cursor SelectDevice() {
+        SQLiteDatabase db = getReadableDatabase();
+        String[] campos = new String[]{"cDeviceAddress"};
+
+        return db.query(Constantes.DBSQLITE_Usuario.TABLE_DEVICE_BLUETOOTH, campos, null, null, null, null, null);
+    }
+
+    public Cursor SelectOptionPrint() {
+        SQLiteDatabase db = getReadableDatabase();
+        String[] campos = new String[]{"cNamePrint"};
+        return db.query(Constantes.DBSQLITE_Usuario.TABLE_OPTION_PRINT, campos, null, null, null, null, null);
+    }
+
+    public long InsertOptionPrint(String option) {
+
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("cNamePrint", option);
+        return db.insert(Constantes.DBSQLITE_Usuario.TABLE_OPTION_PRINT, null, values);
+    }
+
+    public void DeletePrint() {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM " + Constantes.DBSQLITE_Usuario.TABLE_OPTION_PRINT);
+    }
+
+    public long InsertDevice(String deviceAddress) {
+
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("cDeviceAddress", deviceAddress);
+        return db.insert(Constantes.DBSQLITE_Usuario.TABLE_DEVICE_BLUETOOTH, null, values);
+    }
+
+    public void DeleteBluetooth() {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM  " + Constantes.DBSQLITE_Usuario.TABLE_DEVICE_BLUETOOTH);
     }
     public long insertUser(String userName,String userPassword){
         SQLiteDatabase db=getWritableDatabase();

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context="com.example.omarchh.minegociotest.Activitys.DetallePedido">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtFechaPedido"
+
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center|left"
+                android:text="FechaPedido"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtNombreCliente"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:drawableLeft="@drawable/human"
+
+                android:gravity="center|right"
+                android:text="Cliente no especificado"
+                android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/txtNombreVendedor"
+
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:drawableLeft="@drawable/ic_account_grey600_36dp"
+                android:drawableTint="@color/colorPrimaryDark"
+                android:gravity="center|right"
+                android:text="Vendedor no especificado"
+                android:textColor="#000000" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/txtValorBruto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:gravity="center|right"
+                    android:text="Valor bruto"
+                    android:textColor="#0a0c89" />
+
+
+                <TextView
+                    android:id="@+id/txtValorDescuento"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/txtValorBruto"
+                    android:gravity="center|right"
+                    android:text="Descuento"
+                    android:textColor="#0a0c89" />
+
+                <TextView
+                    android:id="@+id/txtValorNeto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/txtValorDescuento"
+                    android:gravity="center|right"
+                    android:text="Valor Neto"
+                    android:textColor="#0a0c89" />
+
+                <TextView
+                    android:id="@+id/txtValorBrutoDato"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center|right"
+                    android:text="S/1000.00"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/valorDescuentoDato"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/txtValorBrutoDato"
+                    android:gravity="center|right"
+                    android:text="S/1000.00"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/txtValorNetoDato"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/valorDescuentoDato"
+                    android:gravity="center|right"
+                    android:text="S/1000.00"
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0.2dp"
+                android:background="#61878787">
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+
+                android:layout_height="40dp"
+                android:drawableRight="@drawable/shopping"
+                android:drawableTint="@color/zxing_custom_result_view"
+                android:gravity="center"
+                android:text="Articulos del Pedido"
+                android:textColor="#000000" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvDetallePedido"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"></android.support.v7.widget.RecyclerView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0.2dp"
+                android:background="#61878787"></LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="Observaciones"
+                android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/txtObservaciones"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
